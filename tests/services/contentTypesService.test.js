@@ -7,6 +7,8 @@ const { getContentTypesService,
   fetchEntriesService,
   deleteAttributeService, } = require('../../src/services/contentTypesServices');
 
+jest.mock('../../database/models');
+
 describe('getContentTypesService', () => {
   it('should return whatever is fetched from Database', async () => {
     const mockDbResponse = {
@@ -73,6 +75,14 @@ describe('fetchEntriesService', () => {
   });
 });
 
-describe('addAttributesToContentTypeService', () => {
-  it('should throw an error if content type is not found', async () => {});
+describe('deleteAttributeService', () => {
+  it('should throw an error if the content type is not found', async () => {
+    const contentTypeId = 1;
+    const attributeName = 'description';
+    db.contentTypes.findOne.mockResolvedValue(null);
+
+    await expect(deleteAttributeService(contentTypeId, attributeName)).rejects.toThrow('Content Type Not Found');
+  });
 });
+
+

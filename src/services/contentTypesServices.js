@@ -1,31 +1,5 @@
 const db = require('../../database/models');
 
-const getContentTypesService = async () => {
-  const contentTypes = await db.contentTypes.findAll();
-  return contentTypes;
-};
-
-const createContentTypeService = async (contentTypeName) => {
-  const contentTypeExists = await db.contentTypes.findOne({
-    where: {
-      name: contentTypeName,
-    }
-  });
-  try {
-    if (!contentTypeExists) {
-      const contentType = await db.contentTypes.create({ name: contentTypeName, attributes: [] });
-      return contentType;
-    }
-    else {
-      throw new Error('Content Type Already Exists');
-    }
-  }
-  catch (err) {
-    return err.message;
-  }
-
-};
-
 const addAttributeToContentTypeService = async (contentTypeName, attributeName) => {
   const contentType = await db.contentTypes.findOne({
     where: {
@@ -68,6 +42,76 @@ const addAttributeToContentTypeService = async (contentTypeName, attributeName) 
     return updatedContentType;
   }
 };
+
+const deleteAttributeService = async (contentTypeId, attributeName) => {
+  console.log(contentTypeId, attributeName);
+
+  const contentType = await db.contentTypes.findOne({
+    where: {
+      id: contentTypeId,
+    }
+  });
+
+  if (!contentType) {
+    throw new Error('Content Type Not Found');
+  }
+  else {
+    const attributes = contentType.attributes;
+    const index = attributes.indexOf(attributeName);
+    if (index > -1) {
+      attributes.splice(index, 1);
+    }
+    const updatedContentType = await db.contentTypes.update({ attributes: attributes }, {
+      where: {
+        id: contentTypeId,
+      }
+    });
+    const matchingEntries = await db.contentTypeEntries.findAll({
+      where: {
+        contentTypeId: contentTypeId,
+      }
+    });
+    for (let i = 0; i < matchingEntries.length; i++) {
+      const entry = matchingEntries[i];
+      const values = JSON.parse(entry.dataValues.values);
+      delete values[attributeName];
+      await db.contentTypeEntries.update({ values: JSON.stringify(values) }, {
+        where: {
+          id: entry.dataValues.id,
+        }
+      });
+    }
+    return updatedContentType;
+  }
+};
+
+const getContentTypesService = async () => {
+  const contentTypes = await db.contentTypes.findAll();
+  return contentTypes;
+};
+
+const createContentTypeService = async (contentTypeName) => {
+  const contentTypeExists = await db.contentTypes.findOne({
+    where: {
+      name: contentTypeName,
+    }
+  });
+  try {
+    if (!contentTypeExists) {
+      const contentType = await db.contentTypes.create({ name: contentTypeName, attributes: [] });
+      return contentType;
+    }
+    else {
+      throw new Error('Content Type Already Exists');
+    }
+  }
+  catch (err) {
+    return err.message;
+  }
+
+};
+
+
 
 const createEntryService = async (contentTypeId, values) => {
   const contentType = await db.contentTypes.findOne({
@@ -113,47 +157,7 @@ const fetchEntriesService = async (contentTypeId) => {
   }
 };
 
-const deleteAttributeService = async (contentTypeId, attributeName) => {
-  console.log(contentTypeId, attributeName);
 
-  const contentType = await db.contentTypes.findOne({
-    where: {
-      id: contentTypeId,
-    }
-  });
-
-  if (!contentType) {
-    throw new Error('Content Type Not Found');
-  }
-  else {
-    const attributes = contentType.attributes;
-    const index = attributes.indexOf(attributeName);
-    if (index > -1) {
-      attributes.splice(index, 1);
-    }
-    const updatedContentType = await db.contentTypes.update({ attributes: attributes }, {
-      where: {
-        id: contentTypeId,
-      }
-    });
-    const matchingEntries = await db.contentTypeEntries.findAll({
-      where: {
-        contentTypeId: contentTypeId,
-      }
-    });
-    for (let i = 0; i < matchingEntries.length; i++) {
-      const entry = matchingEntries[i];
-      const values = JSON.parse(entry.dataValues.values);
-      delete values[attributeName];
-      await db.contentTypeEntries.update({ values: JSON.stringify(values) }, {
-        where: {
-          id: entry.dataValues.id,
-        }
-      });
-    }
-    return updatedContentType;
-  }
-};
 
 const deleteEntryService = async (entryId) => {
   try {

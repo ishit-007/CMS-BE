@@ -1,6 +1,12 @@
 /* eslint-disable no-unused-vars */
-const { getContentTypesHandler, createContentTypeHandler, addAttributeToContentTypeHandler, createEntryHandler, fetchEntriesHandler, deleteAttributeHandler } = require('../../src/controllers/contentTypesController');
-const { getContentTypesService, createContentTypeService, addAttributeToContentTypeService, createEntryService, fetchEntriesService, deleteAttributeService } = require('../../src/services/contentTypesServices');
+const { getContentTypesHandler,
+  createContentTypeHandler,
+  addAttributeToContentTypeHandler,
+  createEntryHandler,
+  fetchEntriesHandler,
+  deleteAttributeHandler,
+  deleteEntryHandler } = require('../../src/controllers/contentTypesController');
+const { getContentTypesService, createContentTypeService, addAttributeToContentTypeService, createEntryService, fetchEntriesService, deleteAttributeService, deleteEntryService } = require('../../src/services/contentTypesServices');
 
 jest.mock('../../src/services/contentTypesServices');
 
@@ -109,3 +115,44 @@ describe('deleteAttributeHandler', () => {
   });
 });
 
+
+
+describe('deleteEntryHandler', () => {
+  test('should call deleteEntryService with entryId from req.params', async () => {
+    const entryId = 1;
+    const req = {
+      params: {
+        entryId,
+      },
+    };
+    const send = jest.fn();
+    const res = {
+      send,
+    };
+    const deleteEntryResp = 'Entry deleted successfully';
+    deleteEntryService.mockResolvedValueOnce(deleteEntryResp);
+
+    await deleteEntryHandler(req, res);
+
+    expect(deleteEntryService).toHaveBeenCalledWith(entryId);
+  });
+
+  test('should send response with deleteEntryResp', async () => {
+    const entryId = 1;
+    const req = {
+      params: {
+        entryId,
+      },
+    };
+    const send = jest.fn();
+    const res = {
+      send,
+    };
+    const deleteEntryResp = 'Entry deleted successfully';
+    deleteEntryService.mockResolvedValueOnce(deleteEntryResp);
+
+    await deleteEntryHandler(req, res);
+
+    expect(send).toHaveBeenCalledWith(deleteEntryResp);
+  });
+});
