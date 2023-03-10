@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { getContentTypesHandler, createContentTypeHandler, addAttributeToContentTypeHandler, createEntryHandler, fetchEntriesHandler, deleteAttributeHandler } = require('../../src/controllers/contentTypesController');
 const { getContentTypesService, createContentTypeService, addAttributeToContentTypeService, createEntryService, fetchEntriesService, deleteAttributeService } = require('../../src/services/contentTypesServices');
 

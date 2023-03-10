@@ -11,13 +11,19 @@ const createContentTypeService = async (contentTypeName) => {
       name: contentTypeName,
     }
   });
-  if (!contentTypeExists) {
-    const contentType = await db.contentTypes.create({ name: contentTypeName, attributes: [] });
-    return contentType;
+  try {
+    if (!contentTypeExists) {
+      const contentType = await db.contentTypes.create({ name: contentTypeName, attributes: [] });
+      return contentType;
+    }
+    else {
+      throw new Error('Content Type Already Exists');
+    }
   }
-  else {
-    throw new Error('Content Type Already Exists');
+  catch (err) {
+    return err.message;
   }
+
 };
 
 const addAttributeToContentTypeService = async (contentTypeName, attributeName) => {
@@ -40,7 +46,7 @@ const addAttributeToContentTypeService = async (contentTypeName, attributeName) 
     const contentTypeId = contentType.dataValues.id;
 
     console.log('contentTypeId: ', contentTypeId);
-    //add attribute:null key value pairs to entries table where contentTypeId=contentTypeId
+
     const matchingEntries = await db.contentTypeEntries.findAll({
       where: {
         contentTypeId: contentTypeId,
@@ -69,12 +75,17 @@ const createEntryService = async (contentTypeId, values) => {
       id: contentTypeId,
     }
   });
-  if (!contentType) {
-    throw new Error('Content Type Not Found');
+  try {
+    if (!contentType) {
+      throw new Error('Content Type Not Found');
+    }
+    else {
+      const entry = await db.contentTypeEntries.create({ contentTypeId: contentTypeId, values: JSON.stringify(values) });
+      return entry;
+    }
   }
-  else {
-    const entry = await db.contentTypeEntries.create({ contentTypeId: contentTypeId, values: JSON.stringify(values) });
-    return entry;
+  catch (err) {
+    return err.message;
   }
 };
 
@@ -84,16 +95,21 @@ const fetchEntriesService = async (contentTypeId) => {
       id: contentTypeId,
     }
   });
-  if (!contentType) {
-    throw new Error('Content Type Not Found');
+  try {
+    if (!contentType) {
+      throw new Error('Content Type Not Found');
+    }
+    else {
+      const entries = await db.contentTypeEntries.findAll({
+        where: {
+          contentTypeId: contentTypeId,
+        }
+      });
+      return entries;
+    }
   }
-  else {
-    const entries = await db.contentTypeEntries.findAll({
-      where: {
-        contentTypeId: contentTypeId,
-      }
-    });
-    return entries;
+  catch (err) {
+    return err.message;
   }
 };
 
