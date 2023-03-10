@@ -152,6 +152,8 @@ module.exports = {
   entryDeleteValidator,
   attributeDeleteValidator,
   entryFetchValidator,
-  tokenValidator
+  tokenValidator,
+  entryFetchSchema,
+  entrySchema
 };
 
