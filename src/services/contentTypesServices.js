@@ -154,6 +154,22 @@ const deleteAttributeService = async (contentTypeId, attributeName) => {
     return updatedContentType;
   }
 };
+
+const deleteEntryService = async (entryId) => {
+  try {
+    const deletedEntry = await db.contentTypeEntries.destroy({
+      where: {
+        id: entryId,
+      }
+    });
+    return deletedEntry;
+  }
+  catch (err) {
+    console.log('error aaya');
+    return err.message;
+  }
+
+};
 module.exports = {
   getContentTypesService,
   createContentTypeService,
@@ -161,4 +177,5 @@ module.exports = {
   createEntryService,
   fetchEntriesService,
   deleteAttributeService,
+  deleteEntryService
 };

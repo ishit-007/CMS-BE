@@ -1,4 +1,4 @@
-const { getContentTypesService, createContentTypeService, addAttributeToContentTypeService, createEntryService, fetchEntriesService, deleteAttributeService } = require('../services/contentTypesServices');
+const { getContentTypesService, createContentTypeService, addAttributeToContentTypeService, createEntryService, fetchEntriesService, deleteAttributeService, deleteEntryService } = require('../services/contentTypesServices');
 
 const getContentTypesHandler = async (req, res) => {
   const contentTypes = await getContentTypesService();
@@ -36,6 +36,12 @@ const deleteAttributeHandler = async (req, res) => {
   const deleteAttributeResp = await deleteAttributeService(contentTypeId, attributeName);
   res.send(deleteAttributeResp);
 };
+
+const deleteEntryHandler = async (req, res) => {
+  const entryId = req.params.entryId;
+  const deleteEntryResp = await deleteEntryService(entryId);
+  res.send(String(deleteEntryResp));
+};
 module.exports = {
   getContentTypesHandler,
   createContentTypeHandler,
@@ -43,4 +49,5 @@ module.exports = {
   createEntryHandler,
   fetchEntriesHandler,
   deleteAttributeHandler,
+  deleteEntryHandler
 };
