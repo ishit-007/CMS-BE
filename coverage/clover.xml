@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1678424636443" clover="3.2.0">
-  <project timestamp="1678424636443" name="All files">
-    <metrics statements="121" coveredstatements="86" conditionals="22" coveredconditionals="12" methods="19" coveredmethods="17" elements="162" coveredelements="115" complexity="0" loc="121" ncloc="121" packages="3" files="5" classes="5"/>
+<coverage generated="1678443543529" clover="3.2.0">
+  <project timestamp="1678443543529" name="All files">
+    <metrics statements="131" coveredstatements="88" conditionals="22" coveredconditionals="12" methods="21" coveredmethods="17" elements="174" coveredelements="117" complexity="0" loc="131" ncloc="131" packages="3" files="5" classes="5"/>
     <package name="database.models">
       <metrics statements="29" coveredstatements="28" conditionals="10" coveredconditionals="7" methods="7" coveredmethods="7"/>
       <file name="contenttypeentries.js" path="/Users/ishit_singh/Desktop/finalEval/backend/database/models/contenttypeentries.js">
@@ -44,9 +44,9 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="29" coveredstatements="29" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+      <metrics statements="33" coveredstatements="30" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="6"/>
       <file name="contentTypesController.js" path="/Users/ishit_singh/Desktop/finalEval/backend/src/controllers/contentTypesController.js">
-        <metrics statements="29" coveredstatements="29" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+        <metrics statements="33" coveredstatements="30" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -75,13 +75,17 @@
         <line num="35" count="1" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
         <line num="37" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="63" coveredstatements="29" conditionals="12" coveredconditionals="5" methods="6" coveredmethods="4"/>
+      <metrics statements="69" coveredstatements="30" conditionals="12" coveredconditionals="5" methods="7" coveredmethods="4"/>
       <file name="contentTypesServices.js" path="/Users/ishit_singh/Desktop/finalEval/backend/src/services/contentTypesServices.js">
-        <metrics statements="63" coveredstatements="29" conditionals="12" coveredconditionals="5" methods="6" coveredmethods="4"/>
+        <metrics statements="69" coveredstatements="30" conditionals="12" coveredconditionals="5" methods="7" coveredmethods="4"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -144,7 +148,13 @@
         <line num="147" count="0" type="stmt"/>
         <line num="148" count="0" type="stmt"/>
         <line num="154" count="0" type="stmt"/>
-        <line num="157" count="2" type="stmt"/>
+        <line num="158" count="2" type="stmt"/>
+        <line num="159" count="0" type="stmt"/>
+        <line num="160" count="0" type="stmt"/>
+        <line num="165" count="0" type="stmt"/>
+        <line num="168" count="0" type="stmt"/>
+        <line num="169" count="0" type="stmt"/>
+        <line num="173" count="2" type="stmt"/>
       </file>
     </package>
   </project>

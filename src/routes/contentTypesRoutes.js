@@ -9,7 +9,7 @@ const { createContentTypeValidator,
   entryAddValidator,
   entryDeleteValidator,
   attributeDeleteValidator,
-  entryFetchValidator } = require('../middlewares/validator');
+  entryFetchValidator, tokenValidator } = require('../middlewares/validator');
 
 router.get('/contentTypes/all', getContentTypesHandler);
 router.post('/contentTypes/create', createContentTypeValidator, createContentTypeHandler);

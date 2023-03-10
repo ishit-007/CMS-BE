@@ -1,5 +1,17 @@
 const Joi = require('joi');
 const { HttpError } = require('../errors/HttpError');
+const axios = require('axios');
+
+const tokenValidator = async (req, res, next) => {
+  const token = req.headers.token;
+  const tokenValidationResp = (await axios.post('http://localhost:4000/token/validate', { token })).data;
+  if (tokenValidationResp) {
+    next();
+  }
+  else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
+};
 
 const contentNameSchema = Joi.object(
   {
@@ -139,6 +151,7 @@ module.exports = {
   entryAddValidator,
   entryDeleteValidator,
   attributeDeleteValidator,
-  entryFetchValidator
+  entryFetchValidator,
+  tokenValidator
 };
 
