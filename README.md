@@ -1,4 +1,4 @@
-CMS Backend
+CMS Frontend
 
 
 This repository contains the frontend code for the CMS (Content Management System). It is responsible for handling all the client-side logic.
